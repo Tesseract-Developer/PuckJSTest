@@ -24,6 +24,16 @@
       log("Command: Turn off");
       Puck.write("LED.reset();\n"); 
     },
+    'get light sensor': function() { 
+      log("Command: Light Sensor (value: '"+ Puck.light() +"'");
+    },
+    'get temperature': function() {
+      log("Command: Get Temperature (value: '"+ E.getTemperature() +"'");
+    },
+    'get battery': function() {
+      log("Command: Get Battery (value: '"+ Puck.getBatteryPercentage() +"'");
+    },
+    
     'find label': function() { log("Command: Find Label"); },
     'remove label': function() { log("Command: Remove Label"); },
     'add label': function() { log("Command: Add Label"); },
