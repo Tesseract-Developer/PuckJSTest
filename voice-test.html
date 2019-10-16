@@ -25,6 +25,10 @@
 <script>
   Puck.debug=3;
   
+  var tempC = 0;
+  var battery = 0;
+  var lightValue = 0;
+  
   function log(x) {
     console.log(x);
     document.getElementById("log").innerHTML += x+"\n";
@@ -32,25 +36,23 @@
   
   function getLightValue() 
   {
-    return Puck.eval("Puck.light()");
+    return Puck.eval("Puck.light()", function(v){
+      lightValue = v;
+    });
   }
   
   function getTemperature()
   {
-    var tempC = 0;
     Puck.eval("E.getTemperature()", function(v) {
       tempC = v;
     });
-    return tempC;
   }
   
   function getBattery()
   {
-    var battery = 0;
     Puck.eval("Puck.getBatteryPercentage()", function(v) {
       battery = v;
     });
-    return battery;
   }
   
   annyang.addCommands({
