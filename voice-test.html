@@ -64,15 +64,15 @@
     },
     'get light sensor': function() { 
       var lightLevel = getLightValue();
-      log("Command: Light Sensor (value: '"+ lightLevel +"'");
+      log("Command: Light Sensor (value: '"+ lightLevel +"')");
     },
     'get temperature': function() { // not reliable measurement
       var tempC = getTemperature();
-      log("Command: Get Temperature (value: '"+ tempC +"ºC'");
+      log("Command: Get Temperature (value: '"+ tempC +"ºC')");
     },
     'get battery': function() {
       var battery = getBattery(); // or NRF.getBattery()
-      log("Command: Get Battery (value: '"+ battery +"'");
+      log("Command: Get Battery (value: '"+ battery +"')");
     },
     
     'find label': function() { log("Command: Find Label"); },
