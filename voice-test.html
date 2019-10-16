@@ -1,7 +1,8 @@
 <html>
 <body>
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
-<script src="//www.puck-js.com/puck.js"></script>
+  <script src="//www.puck-js.com/puck.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+
   <p>This connects to an <a href="http://espruino.com">Espruino device</a> via Web Bluetooth and
     then uses <a href="https://www.talater.com/annyang/">Annyang</a> to interpret speech from
   your mic and issue commands.</p>
@@ -46,7 +47,7 @@
       log("Command: Get Temperature (value: '"+ tempC +"ºC'");
     },
     'get battery': function() {
-      var battery = Puck.getBatteryPercentage();
+      var battery = E.getBattery();
       log("Command: Get Battery (value: '"+ battery +"'");
     },
     
