@@ -64,7 +64,11 @@
       Puck.write("LED.reset();\n"); 
     },
     'get light sensor': function() { 
-      log("Command: Light Sensor (value: '"+ getLightValue() +"')");
+      var lv = Puck.eval("E.getTemperature()", function(v) {
+        console.log(v);
+        return v;
+      });
+      log("Command: Light Sensor (value: '"+ lv +"')");
     },
     'get temperature': function() { // not reliable measurement
       log("Command: Get Temperature (value: '"+ getTemperature() +"ºC')");
