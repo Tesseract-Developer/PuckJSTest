@@ -15,7 +15,7 @@
       <li>'Find Label'</li>
       <li>'Remove Label'</li>
       <li>'Add Label'</li>
-      <li>'Find Label'</li>
+      <li>'Find Email'</li>
   </ul>
   </p>
 <button id="start">Start!</button>
@@ -38,13 +38,16 @@
       Puck.write("LED.reset();\n"); 
     },
     'get light sensor': function() { 
-      log("Command: Light Sensor (value: '"+ Puck.light() +"'");
+      var lightLevel = Puck.light();
+      log("Command: Light Sensor (value: '"+ lightLevel +"'");
     },
     'get temperature': function() {
-      log("Command: Get Temperature (value: '"+ E.getTemperature() +"'");
+      var tempC = E.getTemperature();
+      log("Command: Get Temperature (value: '"+ tempC +"ºC'");
     },
     'get battery': function() {
-      log("Command: Get Battery (value: '"+ Puck.getBatteryPercentage() +"'");
+      var battery = Puck.getBatteryPercentage();
+      log("Command: Get Battery (value: '"+ battery +"'");
     },
     
     'find label': function() { log("Command: Find Label"); },
