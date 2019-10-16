@@ -22,6 +22,7 @@
 <button id="start">Start</button>
   <button id="stop">Stop</button>
 <pre id="log"></pre>
+
 <script>
   Puck.debug=3;
   
@@ -87,10 +88,10 @@
     'get light sensor': function() { getLightValue(); },
     'get temperature': function() { getTemperature(); },
     'get battery': function() { getBattery(); },
-    'find label :labelName': function() { findLabel() },
-    'remove label :labelName': function() { removeLabel() },
-    'add label :labelName': function() { addLabel() },
-    'show email (from) :senderAddress': function() { showEmailFrom() }
+    'find label :labelName': function() { findLabel(); },
+    'remove label :labelName': function() { removeLabel(); },
+    'add label :labelName': function() { addLabel(); },
+    'show email (from) :senderAddress': function() { showEmailFrom(); }
   });
   
   annyang.addCallback('result', function(x) {
