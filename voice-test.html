@@ -32,23 +32,29 @@
   
   function getLightValue() 
   {
+    var lightValue = 0;
       Puck.eval("Puck.light()", function(v) {
-        return v;
+        lightValue = v;
       });
+    return lightValue.
   }
   
   function getTemperature()
   {
+    var tempC = 0;
     Puck.eval("E.getTemperature()", function(v) {
-      return v;
+      tempC = v;
     });
+    return tempC;
   }
   
   function getBattery()
   {
+    var battery = 0;
     Puck.eval("Puck.getBatteryPercentage()", function(v) {
-      return v;
+      battery = v;
     });
+    return battery;
   }
   
   annyang.addCommands({
