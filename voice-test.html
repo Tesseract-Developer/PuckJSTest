@@ -2,7 +2,8 @@
 <body>
   <script src="//www.puck-js.com/puck.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
-
+  <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
+  
   <p>This connects puck.js via Web Bluetooth and
     then uses <a href="https://www.talater.com/annyang/">Annyang</a> to interpret speech from
   the mic and issue commands.</p>
@@ -117,5 +118,11 @@
       log("Stopped Listening.");
      });
   };
+  
+  SpeechKITT.annyang();
+  SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
+  SpeechKITT.setInstructionsText('Some commands to try…');
+  SpeechKITT.rememberStatus(1);
+  SpeechKITT.render();
 </script>
 </body>
