@@ -64,7 +64,7 @@
       Puck.write("LED.reset();\n"); 
     },
     'get light sensor': function() { 
-      var lv = Puck.eval("E.getTemperature()", function(v) {
+      var lv = Puck.eval("Puck.light()", function(v) {
         console.log(v);
         return v;
       });
