@@ -32,25 +32,26 @@
   
   function getLightValue() 
   {
-    return Puck.eval("Puck.light()", function(v){
+    Puck.eval("Puck.light()", function(v){
       console.log(v);
-      return v;
+      log("Command: Light Sensor (value: '"+ v +"')");
     });
   }
   
   function getTemperature()
   {
-    return Puck.eval("E.getTemperature()", function(v) {
+    Puck.eval("E.getTemperature()", function(v) {
       console.log(v);
-      return v;
+      log("Command: Get Temperature (value: '"+ v +"ºC')");
     });
   }
   
   function getBattery()
   {
-    return Puck.eval("Puck.getBatteryPercentage()", function(v) {
+    Puck.eval("Puck.getBatteryPercentage()", function(v) {
       console.log(v);
-      return v;
+      // or NRF.getBattery()
+      log("Command: Get Battery (value: '"+ v +"%')");
     });
   }
   
@@ -63,21 +64,9 @@
       log("Command: Turn off");
       Puck.write("LED.reset();\n"); 
     },
-    'get light sensor': function() { 
-      var lv = Puck.eval("Puck.light()", function(v) {
-        console.log(v);
-        return v;
-      });
-      log("Command: Light Sensor (value: '"+ lv +"')");
-    },
-    'get temperature': function() { // not reliable measurement
-      log("Command: Get Temperature (value: '"+ getTemperature() +"ºC')");
-    },
-    'get battery': function() {
-      // or NRF.getBattery()
-      log("Command: Get Battery (value: '"+ getBattery() +"')");
-    },
-    
+    'get light sensor': function() { getLightValue(); },
+    'get temperature': function() { getTemperature(); },
+    'get battery': function() { getBattery(); },
     'find label': function() { log("Command: Find Label"); },
     'remove label': function() { log("Command: Remove Label"); },
     'add label': function() { log("Command: Add Label"); },
