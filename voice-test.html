@@ -7,12 +7,19 @@
   <p>
   Voice Commands Supported:
   <ul>
-    <li>'Turn on'</li>
-    <li>'Turn off'</li>
+    <li>'Turn on red'</li>
+    <li>'Turn off red'</li>
+    <li>'Turn on blue'</li>
+    <li>'Turn off blue'</li>
+    <li>'Turn on green'</li>
+    <li>'Turn off green'</li>
+    <li>'Magnet On'</li>
+    <li>'Magnet Off'</li>
     <li>'Get Light Sensor'</li>
     <li>'Get Temperature'</li>
     <li>'Get Battery'</li>
   </ul>
+  Set NFC Url: <input type="text" id="nfcUrl" disabled="disabled" />
   
   Parsing Commands (single label names only for now):
   <ul>
@@ -23,10 +30,14 @@
   </ul>
   </p>
 
-<pre id="log"></pre>
+<pre id="log" style="float:right;width:200px"></pre>
 
 <script>
   Puck.debug=3;
+  
+  Puck.on('mag', function(xyz) {
+    log("Magnetometer: value("+ xyz +")")
+  });
   
   function log(x) {
     console.log(x);
@@ -36,7 +47,6 @@
   function getLightValue() 
   {
     Puck.eval("Puck.light()", function(v){
-      console.log(v);
       log("Command: Light Sensor (value: '"+ v +"')");
     });
   }
@@ -44,7 +54,6 @@
   function getTemperature()
   {
     Puck.eval("E.getTemperature()", function(v) {
-      console.log(v);
       log("Command: Get Temperature (value: '"+ v +"ºC')");
     });
   }
@@ -52,7 +61,6 @@
   function getBattery()
   {
     Puck.eval("Puck.getBatteryPercentage()", function(v) {
-      console.log(v);
       // or NRF.getBattery()
       log("Command: Get Battery (value: '"+ v +"%')");
     });
@@ -79,13 +87,37 @@
   }
   
   annyang.addCommands({
-    'turn on': function() { 
-      log("Command: Turn on");
-      Puck.write("LED.set();\n"); 
+    'turn on red': function() { 
+      log("Command: Turn on red");
+      Puck.write("LED1.set();\n"); 
     },
-    'turn off': function() { 
-      log("Command: Turn off");
-      Puck.write("LED.reset();\n"); 
+    'turn off red': function() { 
+      log("Command: Turn off red");
+      Puck.write("LED1.reset();\n"); 
+    },
+    'turn on green': fuction() {
+      log("Command: Turn on green");
+      Puck.write("LED2.set();\n"); 
+    },
+    'turn off green': function() {
+      log("Command: Turn off green");
+      Puck.write("LED2.reset();\n");   
+    },
+    'turn on blue': function() {
+      log("Command: Turn on blue");
+      Puck.write("LED3.set();\n"); 
+    },
+    'turn off blue': function() {
+      log("Command: Turn off blue");
+      Puck.write("LED3.reset();\n"); 
+    },
+    'magnet on': function() {
+      log("Command: magnet on");
+      Puck.magOn();
+    },
+    'magnet off': function() {
+      log("Command: magnet off");
+      Puck.magOff();
     },
     'get light sensor': function() { getLightValue(); },
     'get temperature': function() { getTemperature(); },
@@ -93,7 +125,7 @@
     'find label :labelName': findLabel,
     'remove label :labelName': removeLabel,
     'add label :labelName': addLabel,
-    'show email (from) :senderAddress': showEmailFrom
+    'show email (from) *senderAddress': showEmailFrom
   });
   
   annyang.addCallback('result', function(x) {
