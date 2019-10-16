@@ -3,9 +3,9 @@
   <script src="//www.puck-js.com/puck.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
 
-  <p>This connects to an <a href="http://espruino.com">Espruino device</a> via Web Bluetooth and
+  <p>This connects puck.js via Web Bluetooth and
     then uses <a href="https://www.talater.com/annyang/">Annyang</a> to interpret speech from
-  your mic and issue commands.</p>
+  the mic and issue commands.</p>
   <p>
     <ul>Commands Supported:
       <li>'Turn on'</li>
@@ -19,7 +19,8 @@
       <li>'Find Email'</li>
   </ul>
   </p>
-<button id="start">Start!</button>
+<button id="start">Start</button>
+  <button id="stop">Stop</button>
 <pre id="log"></pre>
 <script>
   Puck.debug=3;
@@ -42,12 +43,12 @@
       var lightLevel = Puck.light();
       log("Command: Light Sensor (value: '"+ lightLevel +"'");
     },
-    'get temperature': function() {
+    'get temperature': function() { // not reliable measurement
       var tempC = E.getTemperature();
       log("Command: Get Temperature (value: '"+ tempC +"ºC'");
     },
     'get battery': function() {
-      var battery = E.getBattery();
+      var battery = Puck.getBatteryPercentage(); // or NRF.getBattery()
       log("Command: Get Battery (value: '"+ battery +"'");
     },
     
@@ -70,5 +71,15 @@
       log("Listening...");
      });
    };
+  
+  document.getElementById("stop").onclick = function() {
+    // stop a connection, write ctrl-c to clear the input line
+    Puck.write("\x03",function() {
+      log("Disconnecting from Web Bluetooth!");
+      // Sop listening.
+      annyang.stop();
+      log("Stopped Listening.");
+     });
+  };
 </script>
 </body>
