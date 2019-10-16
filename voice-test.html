@@ -99,29 +99,9 @@
      console.log("Got: "+x);
   });
   
-  document.getElementById("start").onclick = function() {
-    // start a connection, write ctrl-c to clear the input line
-    Puck.write("\x03",function() {
-      log("Connected to Web Bluetooth!");
-      // Start listening.
-      annyang.start();
-      log("Listening...");
-     });
-   };
-  
-  document.getElementById("stop").onclick = function() {
-    // stop a connection, write ctrl-c to clear the input line
-    Puck.write("\x03",function() {
-      log("Disconnecting from Web Bluetooth!");
-      // Sop listening.
-      annyang.abort();
-      log("Stopped Listening.");
-     });
-  };
-  
   SpeechKITT.annyang();
   SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/themes/flat.css');
-  SpeechKITT.setInstructionsText('Some commands to try…');
+  SpeechKITT.setInstructionsText('Listening...');
   SpeechKITT.rememberStatus(1);
   SpeechKITT.render();
 </script>
