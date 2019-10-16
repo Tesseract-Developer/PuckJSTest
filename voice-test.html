@@ -25,10 +25,6 @@
 <script>
   Puck.debug=3;
   
-  var tempC = 0;
-  var battery = 0;
-  var lightValue = 0;
-  
   function log(x) {
     console.log(x);
     document.getElementById("log").innerHTML += x+"\n";
@@ -37,23 +33,24 @@
   function getLightValue() 
   {
     Puck.eval("Puck.light()", function(v){
-      lightValue = v;
       console.log(v);
-      console.log(lightValue);
+      return v;
     });
   }
   
   function getTemperature()
   {
     Puck.eval("E.getTemperature()", function(v) {
-      tempC = v;
+      console.log(v);
+      return v;
     });
   }
   
   function getBattery()
   {
     Puck.eval("Puck.getBatteryPercentage()", function(v) {
-      battery = v;
+      console.log(v);
+      return v;
     });
   }
   
@@ -67,16 +64,14 @@
       Puck.write("LED.reset();\n"); 
     },
     'get light sensor': function() { 
-      var lightLevel = getLightValue();
-      log("Command: Light Sensor (value: '"+ lightLevel +"')");
+      log("Command: Light Sensor (value: '"+ getLightValue() +"')");
     },
     'get temperature': function() { // not reliable measurement
-      var tempC = getTemperature();
-      log("Command: Get Temperature (value: '"+ tempC +"ºC')");
+      log("Command: Get Temperature (value: '"+ getTemperature() +"ºC')");
     },
     'get battery': function() {
-      var battery = getBattery(); // or NRF.getBattery()
-      log("Command: Get Battery (value: '"+ battery +"')");
+      // or NRF.getBattery()
+      log("Command: Get Battery (value: '"+ getBattery() +"')");
     },
     
     'find label': function() { log("Command: Find Label"); },
