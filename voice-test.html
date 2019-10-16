@@ -32,11 +32,7 @@
   
   function getLightValue() 
   {
-    var lightValue = 0;
-    Puck.eval("Puck.light()", function(v) {
-      lightValue = v;
-    });
-    return lightValue;
+    return Puck.eval("Puck.light()");
   }
   
   function getTemperature()
