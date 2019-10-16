@@ -30,6 +30,27 @@
     document.getElementById("log").innerHTML += x+"\n";
   }
   
+  function getLightValue() 
+  {
+      Puck.eval("Puck.light()", function(v) {
+        return v;
+      });
+  }
+  
+  function getTemperature()
+  {
+    Puck.eval("E.getTemperature()", function(v) {
+      return v;
+    });
+  }
+  
+  function getBattery()
+  {
+    Puck.eval("Puck.getBatteryPercentage()", function(v) {
+      return v;
+    });
+  }
+  
   annyang.addCommands({
     'turn on': function() { 
       log("Command: Turn on");
@@ -40,7 +61,7 @@
       Puck.write("LED.reset();\n"); 
     },
     'get light sensor': function() { 
-      var lightLevel = Puck.light();
+      var lightLevel = getLightValue();
       log("Command: Light Sensor (value: '"+ lightLevel +"'");
     },
     'get temperature': function() { // not reliable measurement
