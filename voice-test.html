@@ -65,11 +65,11 @@
       log("Command: Light Sensor (value: '"+ lightLevel +"'");
     },
     'get temperature': function() { // not reliable measurement
-      var tempC = E.getTemperature();
+      var tempC = getTemperature();
       log("Command: Get Temperature (value: '"+ tempC +"ºC'");
     },
     'get battery': function() {
-      var battery = Puck.getBatteryPercentage(); // or NRF.getBattery()
+      var battery = getBattery(); // or NRF.getBattery()
       log("Command: Get Battery (value: '"+ battery +"'");
     },
     
