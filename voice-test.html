@@ -32,7 +32,7 @@
   
   function getLightValue() 
   {
-    Puck.eval("Puck.light()", function(v){
+    return Puck.eval("Puck.light()", function(v){
       console.log(v);
       return v;
     });
@@ -40,7 +40,7 @@
   
   function getTemperature()
   {
-    Puck.eval("E.getTemperature()", function(v) {
+    return Puck.eval("E.getTemperature()", function(v) {
       console.log(v);
       return v;
     });
@@ -48,7 +48,7 @@
   
   function getBattery()
   {
-    Puck.eval("Puck.getBatteryPercentage()", function(v) {
+    return Puck.eval("Puck.getBatteryPercentage()", function(v) {
       console.log(v);
       return v;
     });
