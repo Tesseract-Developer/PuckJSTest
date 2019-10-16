@@ -77,7 +77,7 @@
     Puck.write("\x03",function() {
       log("Disconnecting from Web Bluetooth!");
       // Sop listening.
-      annyang.stop();
+      annyang.abort();
       log("Stopped Listening.");
      });
   };
