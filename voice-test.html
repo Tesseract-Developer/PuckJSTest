@@ -56,22 +56,22 @@
     });
   }
   
-  function findLabel(labelName)
+  var findLabel = function(labelName)
   {
     log("Command: Find Label '"+ labelName +"'");
   }
   
-  function removeLabel(labelName)
+  var removeLabel = function(labelName)
   {
     log("Command: Remove Label '"+ labelName +"'");
   }
   
-  function addLabel(labelName)
+  var addLabel = function(labelName)
   {
     log("Command: Add Label '"+ labelName +"'");
   }
   
-  function showEmailFrom(senderAddress)
+  var showEmailFrom = function(senderAddress)
   {
     log("Command: Show Email '"+ senderAddress +"'");
   }
@@ -88,10 +88,10 @@
     'get light sensor': function() { getLightValue(); },
     'get temperature': function() { getTemperature(); },
     'get battery': function() { getBattery(); },
-    'find label :labelName': function() { findLabel(); },
-    'remove label :labelName': function() { removeLabel(); },
-    'add label :labelName': function() { addLabel(); },
-    'show email (from) :senderAddress': function() { showEmailFrom(); }
+    'find label :labelName': findLabel,
+    'remove label :labelName': removeLabel },
+    'add label :labelName': addLabel },
+    'show email (from) :senderAddress': showEmailFrom }
   });
   
   annyang.addCallback('result', function(x) {
