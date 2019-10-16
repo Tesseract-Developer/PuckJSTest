@@ -1,0 +1,47 @@
+<html>
+<body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+<script src="//www.puck-js.com/puck.js"></script>
+  <p>This connects to an <a href="http://espruino.com">Espruino device</a> via Web Bluetooth and
+    then uses <a href="https://www.talater.com/annyang/">Annyang</a> to interpret speech from
+  your mic and issue commands. Try 'Turn on' and 'Turn off'.</p>
+<button id="start">Start!</button>
+<pre id="log"></pre>
+<script>
+  Puck.debug=3;
+  
+  function log(x) {
+    console.log(x);
+    document.getElementById("log").innerHTML += x+"\n";
+  }
+  
+  annyang.addCommands({
+    'turn on': function() { 
+      log("Command: Turn on");
+      Puck.write("LED.set();\n"); 
+    },
+    'turn off': function() { 
+      log("Command: Turn off");
+      Puck.write("LED.reset();\n"); 
+    },
+    'find label': function() { log("Command: Find Label"); },
+    'remove label': function() { log("Command: Remove Label"); },
+    'add label': function() { log("Command: Add Label"); },
+    'find email': function() { log("Command: Find Email"); }
+  });
+  
+  annyang.addCallback('result', function(x) {
+     console.log("Got: "+x);
+  });
+  
+  document.getElementById("start").onclick = function() {
+    // start a connection, write ctrl-c to clear the input line
+    Puck.write("\x03",function() {
+      log("Connected to Web Bluetooth!");
+      // Start listening.
+      annyang.start();
+      log("Listening...");
+     });
+   };
+</script>
+</body>
