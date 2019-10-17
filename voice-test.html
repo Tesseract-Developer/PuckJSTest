@@ -35,10 +35,6 @@
 <script>
   Puck.debug=3;
   
-  Puck.on('mag', function(xyz) {
-    log("Magnetometer: value("+ xyz +")");
-  });
-  
   function log(x) {
     console.log(x);
     document.getElementById("log").innerHTML += x+"\n";
@@ -113,11 +109,15 @@
     },
     'magnet on': function() {
       log("Command: magnet on");
-      Puck.magOn();
+      Puck.write("Puck.magOn();\n")
+      //Puck.on('mag', function(xyz) {
+      // log("Magnetometer: value("+ xyz +")");
+      //});
+  
     },
     'magnet off': function() {
       log("Command: magnet off");
-      Puck.magOff();
+      Puck.write("Puck.magOff();\n");
     },
     'get light sensor': function() { getLightValue(); },
     'get temperature': function() { getTemperature(); },
