@@ -8,6 +8,9 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
+  
+  // https://www.espruino.com/Web+Bluetooth
+   
   function connectDevice() {
     // connect, and ask for the battery percentage
     Puck.eval("{bat:Puck.getBatteryPercentage()}", function(d,err) {
