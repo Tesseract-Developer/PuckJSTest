@@ -4,6 +4,8 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/1.0.0/speechkitt.min.js"></script>
   
+  <pre id="log" style="float:right;width:400px"></pre>
+  
   <p>
   Voice Commands Supported:
   <ul>
@@ -21,7 +23,7 @@
   </ul>
   Set NFC Url: <input type="text" id="nfcUrl" disabled="disabled" />
   
-  Parsing Commands (single label names only for now):
+  Parsing Commands (single label names only for now):<br />
   <ul>
       <li>'Find Label'</li>
       <li>'Remove Label'</li>
@@ -29,8 +31,6 @@
       <li>'Show Email'</li>
   </ul>
   </p>
-
-<pre id="log" style="float:right;width:200px"></pre>
 
 <script>
   Puck.debug=3;
@@ -57,8 +57,11 @@
   function getBattery()
   {
     Puck.eval("Puck.getBatteryPercentage()", function(v) {
-      // or NRF.getBattery()
       log("Command: Get Battery (value: '"+ v +"%')");
+    });
+    
+    Puck.eval("NRF.getBattery()", function(v) {
+      log("         Battery Voltage (value: '"+ v +"v')");
     });
   }
   
