@@ -39,6 +39,7 @@
 
 <script>
   Puck.debug=3;
+  var bluetoothDevice;
   
   function log(x) {
     console.log(x);
@@ -73,28 +74,43 @@
   function connect()
   {
     log("Command: Connect");
-    // TODO
+    navigator.bluetooth.requestDevice({
+      filters: [{ namePrefix: 'TESS' }], //<- Prefer filters to save energy & show relevant devices.
+      optionalServices: ['generic_access']})
+    .then(device => {
+      bluetoothDevice = device;
+      bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
+      return bluetoothDevice.gatt.connect();
+    })
+    .then(server => {
+      log('Bluetooth Device connected.');
+    })
+    .catch(error => {
+      log('ERROR: ' + error);
+    });
+  }
+  
+  function onDisconnected()
+  {
+    if (!bluetoothDevice) {
+      return;
+    }
+    
+    if (bluetoothDevice.gatt.connected) {
+      disconnect();
+    } else {
+      log('Bluetooth Device is already disconnected');
+    }
   }
   
   function disconnect()
   {
     log("Command: Disconnect");
-    Puck.eval("NRF.disconnect()");
+    bluetoothDevice.gatt.disconnect();
   }
   
   function onButtonClick() {
-    log('Requesting any Bluetooth Device...');
-    navigator.bluetooth.requestDevice({
-        filters: [{ namePrefix: 'TESS' }], //<- Prefer filters to save energy & show relevant devices.
-        //acceptAllDevices: true,
-        optionalServices: ['generic_access']})
-    .then(device => {
-      log('Connecting to GATT Server...');
-      return device.gatt.connect();
-    })
-    .catch(error => {
-      log('ERROR: ' + error);
-    });
+    connect();
   }
   
   annyang.addCommands({
