@@ -23,8 +23,9 @@
     <li>'Get Light Sensor'</li>
     <li>'Get Temperature'</li>
     <li>'Get Battery'</li>
-    <li>'Connect'</li>
+    <li>'Scan'</li>
     <li>'Disconnect'</li>
+    <li>'Reconnect'</li>
   </ul>
 
   <br />
@@ -32,7 +33,7 @@
   <br /><br />
   <button id="connectBLE" value="Scan" onclick="scan()">Scan</button>
   <button id="disconnectBLE" value="Disconnect" onclick="disconnect()">Disconnect</button>
-  <button id="reconnectBLE" value="Reconnect" onclick="connect()">Reconnect</button>
+  <button id="reconnectBLE" value="Reconnect" onclick="reconnect()">Reconnect</button>
   <br /><br />
   
   Set NFC Url: <input type="text" id="nfcUrl" disabled="disabled" /><button id="setNFC" value="Set" disabled="disabled">Set</button>
@@ -95,34 +96,35 @@
   function connect() {
     log('Connecting to Bluetooth Device...');
     return bluetoothDevice.gatt.connect()
-    .then(function(g) {
-      gatt = g;
-      log('Bluetooth Device connected, bonding...');
-      return gatt.startBonding();
-    })
-    .then(function() {
-      log("Bluetooth Device bonded, "+ gatt.getSecurityStatus());
+    .then(server => {
+      log('Bluetooth Device connected');
     });
   }
   
-  function onDisconnected()
-  {
-    if (!bluetoothDevice) {
-      return;
-    }
-
-    if (bluetoothDevice.gatt.connected) {
-      log('Disconnecting from Bluetooth Device...');
-      disconnect();
-    } else {
-      log('Bluetooth Device is already disconnected');
-    }
+  function onDisconnected(event) {
+    // Object event.target is Bluetooth Device getting disconnected.
+    log('Bluetooth Device disconnected ('+ event.target +')');
   }
-  
+
   function disconnect()
   {
     log("Command: Disconnect");
     bluetoothDevice.gatt.disconnect();
+  }
+  
+  function reconnect()
+  {
+    if (!bluetoothDevice) {
+      return;
+    }
+    if (bluetoothDevice.gatt.connected) {
+      log('Bluetooth Device is already connected');
+      return;
+    }
+    connect()
+    .catch(error => {
+      log('ERROR: ' + error);
+    });  
   }
   
   annyang.addCommands({
@@ -168,8 +170,9 @@
       log("Temperature: "+ tempF +"ºF");
     },
     'get battery': function() { getBattery(); },
-    'connect': function() { connect(); },
-    'disconnect': function() { disconnect(); }
+    'scan': function() { scan(); },
+    'disconnect': function() { disconnect(); },
+    'reconnect': function() { reconnect(); }
   });
   
   annyang.addCallback('result', function(x) {
