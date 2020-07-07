@@ -40,7 +40,7 @@
 <script>
   Puck.debug=3;
   var bluetoothDevice;
-  
+ 
   function log(x) {
     console.log(x);
     document.getElementById("log").innerHTML += x+"\n";
@@ -74,9 +74,12 @@
   function connect()
   {
     log("Command: Connect");
+    bluetoothDevice = null;
+    log("Requesting Bluetooth Device...");
     navigator.bluetooth.requestDevice({
       filters: [{ namePrefix: 'TESS' }], //<- Prefer filters to save energy & show relevant devices.
-      optionalServices: ['generic_access']})
+      optionalServices: ['generic_access']
+    })
     .then(device => {
       bluetoothDevice = device;
       bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
@@ -97,6 +100,7 @@
     }
     
     if (bluetoothDevice.gatt.connected) {
+      log('Disconnecting from Bluetooth Device...');
       disconnect();
     } else {
       log('Bluetooth Device is already disconnected');
