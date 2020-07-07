@@ -1,3 +1,3 @@
 ## Test Page
 
-[VoiceTest](VoiceTest.html)
+[VoiceTest](voice-test.html)
