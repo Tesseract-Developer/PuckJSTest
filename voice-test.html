@@ -71,7 +71,7 @@
 function onButtonClick() {
   log('Requesting any Bluetooth Device...');
   navigator.bluetooth.requestDevice({
-   // filters: [...] <- Prefer filters to save energy & show relevant devices.
+      filters: [{ namePrefix: 'TESS' }] //<- Prefer filters to save energy & show relevant devices.
       acceptAllDevices: true,
       optionalServices: ['generic_access']})
   .then(device => {
@@ -117,7 +117,7 @@ function onButtonClick() {
     return queue;
   })
   .catch(error => {
-    log('Argh! ' + error);
+    log('ERROR: ' + error);
   });
 }
 
