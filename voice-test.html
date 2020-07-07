@@ -95,12 +95,13 @@
   function connect() {
     log('Connecting to Bluetooth Device...');
     return bluetoothDevice.gatt.connect()
-    .then(server => {
+    .then(function(g) {
+      gatt = g;
       log('Bluetooth Device connected, bonding...');
-      return server.startBonding();
+      return gatt.startBonding();
     })
-    .then(() => {
-      log("Bluetooth Device bonded, "+ server.getSecurityStatus());
+    .then(function() {
+      log("Bluetooth Device bonded, "+ gatt.getSecurityStatus());
     });
   }
   
