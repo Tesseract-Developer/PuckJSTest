@@ -218,7 +218,7 @@ function getDeviceType(value) {
     },
     'get light sensor': function() { getLightValue(); },
     'get temperature': function() { 
-      var temp = Math.Round(getTemperature()); 
+      var temp = Math.round(getTemperature()); 
       var tempF = ((temp * 9/5) + 32);
       log("Temperature: "+ tempF +"ºF");
     },
