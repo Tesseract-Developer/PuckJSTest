@@ -180,26 +180,6 @@ function getDeviceType(value) {
       (value in valueToDeviceType ? ' (' + valueToDeviceType[value] + ')' : '');
 }
   
-  var findLabel = function(labelName)
-  {
-    log("Command: Find Label '"+ labelName +"'");
-  }
-  
-  var removeLabel = function(labelName)
-  {
-    log("Command: Remove Label '"+ labelName +"'");
-  }
-  
-  var addLabel = function(labelName)
-  {
-    log("Command: Add Label '"+ labelName +"'");
-  }
-  
-  var showEmailFrom = function(senderAddress)
-  {
-    log("Command: Show Email '"+ senderAddress +"'");
-  }
-  
   annyang.addCommands({
     'turn on red': function() { 
       log("Command: Turn on red");
@@ -231,7 +211,6 @@ function getDeviceType(value) {
       //Puck.on('mag', function(xyz) {
       // log("Magnetometer: value("+ xyz +")");
       //});
-  
     },
     'magnet off': function() {
       log("Command: magnet off");
@@ -239,7 +218,7 @@ function getDeviceType(value) {
     },
     'get light sensor': function() { getLightValue(); },
     'get temperature': function() { 
-      var temp = getTemperature(); 
+      var temp = E.getTemperature(); 
       var tempF = ((temp * 9/5) + 32);
       log("Temperature: "+ tempF +"ºF");
     },
