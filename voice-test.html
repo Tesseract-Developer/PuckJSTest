@@ -238,7 +238,11 @@ function getDeviceType(value) {
       Puck.write("Puck.magOff();\n");
     },
     'get light sensor': function() { getLightValue(); },
-    'get temperature': function() { getTemperature(); },
+    'get temperature': function() { 
+      var temp = getTemperature(); 
+      var tempF = ((temp * 9/5) + 32);
+      log("Temperature: "+ tempF +"ºF");
+    },
     'get battery': function() { getBattery(); },
     'find label :labelName': findLabel,
     'remove label :labelName': removeLabel,
