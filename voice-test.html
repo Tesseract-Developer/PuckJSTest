@@ -96,7 +96,11 @@
     log('Connecting to Bluetooth Device...');
     return bluetoothDevice.gatt.connect()
     .then(server => {
-      log('Bluetooth Device connected');
+      log('Bluetooth Device connected, bonding...');
+      return server.startBonding();
+    })
+    .then(() => {
+      log("Bluetooth Device bonded, "+ server.getSecurityStatus());
     });
   }
   
