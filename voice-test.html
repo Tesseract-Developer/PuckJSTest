@@ -26,6 +26,7 @@
     <li>'Scan'</li>
     <li>'Disconnect'</li>
     <li>'Reconnect'</li>
+    <li>'Stop Listening'</li>
   </ul>
 
   <br />
@@ -179,8 +180,7 @@
     'scan': function() { scan(); },
     'disconnect': function() { disconnect(); },
     'reconnect': function() { reconnect(); },
-    'stop listening': function() { annyang.abort(); },
-    'pause listening': function() { annyang.pause(); }
+    'stop listening': function() { annyang.abort(); }
   });
   
   annyang.addCallback('result', function(x) {
