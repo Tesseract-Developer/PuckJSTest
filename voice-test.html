@@ -178,7 +178,9 @@
     'get battery': function() { getBattery(); },
     'scan': function() { scan(); },
     'disconnect': function() { disconnect(); },
-    'reconnect': function() { reconnect(); }
+    'reconnect': function() { reconnect(); },
+    'stop listening': function() { annyang.abort(); },
+    'pause listening': function() { annyang.pause(); }
   });
   
   annyang.addCallback('result', function(x) {
