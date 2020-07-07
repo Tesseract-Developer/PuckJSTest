@@ -30,7 +30,9 @@
   <br />
   <br />
   <br /><br />
-  <button id="connectBLE" value="Connect BLE" onclick="onButtonClick()">Connect BLE</button>
+  <button id="connectBLE" value="Scan" onclick="onButtonClick()">Scan</button>
+  <button id="disconnectBLE" value="Disconnect" onclick="disconnect()">Disconnect</button>
+  <button id="reconnectBLE" value="Reconnect" onclick="connect()">Reconnect</button>
   <br /><br />
   
   Set NFC Url: <input type="text" id="nfcUrl" disabled="disabled" /><button id="setNFC" value="Set" disabled="disabled">Set</button>
@@ -71,7 +73,7 @@
     });
   }
   
-  function connect()
+  function scan()
   {
     log("Command: Connect");
     bluetoothDevice = null;
@@ -83,13 +85,18 @@
     .then(device => {
       bluetoothDevice = device;
       bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-      return bluetoothDevice.gatt.connect();
-    })
-    .then(server => {
-      log('Bluetooth Device connected.');
+      return connect();
     })
     .catch(error => {
       log('ERROR: ' + error);
+    });
+  }
+  
+  function connect() {
+    log('Connecting to Bluetooth Device...');
+    return bluetoothDevice.gatt.connect()
+    .then(server => {
+      log('Bluetooth Device connected');
     });
   }
   
@@ -98,7 +105,7 @@
     if (!bluetoothDevice) {
       return;
     }
-    
+
     if (bluetoothDevice.gatt.connected) {
       log('Disconnecting from Bluetooth Device...');
       disconnect();
@@ -111,10 +118,6 @@
   {
     log("Command: Disconnect");
     bluetoothDevice.gatt.disconnect();
-  }
-  
-  function onButtonClick() {
-    connect();
   }
   
   annyang.addCommands({
